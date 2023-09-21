@@ -1,5 +1,5 @@
 #include "sort.h"
-/** 
+/**
  * swap - swap function
  * @a: pointer to address of a
  * @b: pointer to address of b
@@ -22,7 +22,7 @@ void bubble_sort(int *array, size_t size)
 	size_t swapped, i, j;
 
 	if (array == NULL || size == 0)
-		return
+		return;
 	for (i = 0; i < size; i++)
 	{
 		swapped = 0;
@@ -38,5 +38,4 @@ void bubble_sort(int *array, size_t size)
 		if (!swapped)
 			break;
 	}
-	
 }
