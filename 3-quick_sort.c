@@ -1,50 +1,49 @@
 #include "sort.h"
-
 /**
- * swap - swap function
- * @a: pointer to a variable
- * @b: pointer to b variable
- * Return: NULL
-*/
-void swap(int *a, int *b)
-{
-	int temp = *a;
-
-	if (!a || !b)
-		return;
-	*a = *b;
-	*b = temp;
-}
-/**
- * partition_so - the partition function
- * @array: array
- * @low: low value
- * @high: high value
- * @size: size
- * Return: index of the pivot
-*/
+ * partition_so - Partitions the array using Lomuto scheme.
+ * @array: Array to be partitioned.
+ * @low: Starting index of the partition.
+ * @high: Ending index of the partition.
+ * @size: Size of the array.
+ * Return: Index of the pivot element.
+ */
 int partition_so(int *array, int low, int high, size_t size)
 {
+	int pivotValue = array[high];
 
-	int pivotValue, i, j;
+	int i = low - 1, j;
 
 	if (!array || low >= high || low < 0 || high < 0)
 		return (-1);
-	pivotValue = array[high];
-	i = low - 1;
 
 	for (j = low; j <= high - 1; j++)
 	{
 		if (array[j] < pivotValue)
 		{
 			i++;
-			swap(&array[i], &array[j]);
-			print_array(array, size);
+			if (i != j)
+			{
+				int temp = array[i];
+
+				array[i] = array[j];
+				array[j] = temp;
+				print_array(array, size);
+			}
 		}
 	}
-	swap(&array[i + 1], &array[high]);
-	return (i);
+
+	if (array[i + 1] != array[high])
+	{
+		int temp = array[i + 1];
+
+		array[i + 1] = array[high];
+		array[high] = temp;
+		print_array(array, size);
+	}
+
+	return (i + 1);
 }
+
 
 /**
  * recursion - quick sort recursion
@@ -59,7 +58,7 @@ void recursion(int *array, int low, int high, size_t size)
 	if (!array)
 		return;
 
-	if ((high - low) > 0)
+	if (low < high)
 	{
 		int pivot_idx = partition_so(array, low, high, size);
 
